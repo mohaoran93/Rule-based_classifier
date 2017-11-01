@@ -4,7 +4,7 @@ import pandas as pd
 class GetData():
     def read(self, name = None):
         if name == None:
-            name = input("Type in the data set file name then continue, {bscale, car, tic-tac-toe}")
+            name = input("Type in the data set file name then continue, {bscale, car, kr-vs-kp}")
         else:
             pass
         try:

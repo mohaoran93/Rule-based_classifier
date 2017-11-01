@@ -2,7 +2,7 @@ import numpy as np
 
 class ParseDataSet(object):
 # dic -> attr : [possible value]
-    def pare(self,df=None):
+    def parse(self,df=None):
         attr_size =len(df.columns) - 1
         rows_size = len(df)
         dic = {}

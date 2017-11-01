@@ -4,7 +4,6 @@ import itertools
 
 from read import GetData
 from parse_data import ParseDataSet
-import tool
 
 
 class Classifier(object):
@@ -22,6 +21,7 @@ class Classifier(object):
             index_product = list(itertools.combinations(np.arange(0,attr_size), self.number_combinations))
             attr = df.columns[df.columns != 'class'] # attr without column of class
             df_atrr = []
+            len_total = len(df)
             for attr_ in attr:
                 df_atrr.append(df[attr_].unique())
 
@@ -32,26 +32,27 @@ class Classifier(object):
                     p_each.append(df_atrr[each_index])
                 attr_combination_total.append({comb_index:p_each})
 
-            product_toal = []
             for comb in attr_combination_total:
-                len_total = len(df)
-                attr_selected =[]
+                cols =[]
                 index_i = list(comb.keys())
                 pair_i = comb.get(index_i[0])
                 product_eachs = list(itertools.product(*pair_i))
                 for index in index_i[0]:
                     attr_name = 'a'+str(index+1)
-                    attr_selected.append(attr_name)
-                cols = attr_selected
-                for product_each in product_eachs:
-                    conditions = product_each
+                    cols.append(attr_name)
+                for conditions in product_eachs:
                     temp_df = df[eval(" & ".join(["(df['{0}'] == '{1}')".format(col, cond)
                                 for col, cond in zip(cols, conditions)]))]
                     cls = temp_df['class'].unique()
+                    # print(len(cls))
                     if len(cls) == 1:
-                        df = df[eval(" & ".join(["(df['{0}'] != '{1}')".format(col, cond)
-                               for col, cond in zip(cols, conditions)]))]
-                        print("For the time being, the coverage is : ", 1 - len(df)/len_total)
+                        # df = df[eval("  ".join(["(df['{0}'] != '{1}')".format(col, cond)
+                        #        for col, cond in zip(cols, conditions)]))]
+                        df = pd.merge(df,temp_df,how='outer',indicator=True)
+                        df = df[df['_merge'] == 'left_only']
+                        del df['_merge']
+                        self.rest_rows = len(df)
+                        print("For the time being, the number_combinations is {0} the coverage is: {1}, the number of rest of rows is {2}".format(self.number_combinations,1 - len(df)/len_total,self.rest_rows))
                         self.rules.append({tuple(cols):conditions,'class':cls[0]})
             self.number_combinations = self.number_combinations+1
         return self.rules
