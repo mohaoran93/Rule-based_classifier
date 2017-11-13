@@ -1,9 +1,10 @@
-import pandas as pd
-import numpy as np
 import itertools
 
-from read import GetData
-from parse_data import ParseDataSet
+import numpy as np
+import pandas as pd
+from Source.read import GetData
+
+from Source.parse_data import ParseDataSet
 
 
 class Classifier(object):
@@ -52,7 +53,7 @@ class Classifier(object):
                         df = df[df['_merge'] == 'left_only']
                         del df['_merge']
                         self.rest_rows = len(df)
-                        print("For the time being, the number_combinations is {0} the coverage is: {1}, the number of rest of rows is {2}".format(self.number_combinations,1 - len(df)/len_total,self.rest_rows))
+                        print("For the time being, the number_combinations is {0} the coverage(total) is: {1}, the number of rest of rows is {2}".format(self.number_combinations,1 - len(df)/len_total,self.rest_rows))
                         self.rules.append({tuple(cols):conditions,'class':cls[0]})
             self.number_combinations = self.number_combinations+1
         return self.rules

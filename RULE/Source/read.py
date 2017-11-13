@@ -8,8 +8,8 @@ class GetData():
         else:
             pass
         try:
-            df = pd.read_csv(name+'.csv')
+            df = pd.read_csv('Data/'+name+'.csv')
             print('OK','I got the file: '+name+".csv")
         except:
-            print("No such file")
+            print("No this file")
         return df

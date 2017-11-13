@@ -1,0 +1,3 @@
+import pandas as pd
+df = pd.read_csv("/Users/mohaoran/Documents/F2017/UPC/ASM/ASM/lab2/RUGBY.csv")
+print(df)

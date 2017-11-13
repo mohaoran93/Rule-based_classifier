@@ -1,9 +1,8 @@
-from read import GetData
-from parse_data import ParseDataSet
-from RULE import Classifier
-from rule_interpreter import Interpreter
 import numpy as np
-import pandas as pd
+from Source.RULE import Classifier
+from Source.read import GetData
+from Source.rule_interpreter import Interpreter
+from Source.parse_data import ParseDataSet
 
 parser = ParseDataSet()
 classifier = Classifier()

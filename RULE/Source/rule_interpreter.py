@@ -20,6 +20,6 @@ class Interpreter(object):
             n = len(temp_df_right)
             right_rows = right_rows + n
             if len(temp_df) != 0:
-                print("Applying rule {0} then got {1} rows(denote the coverage), and the precision of this rule is {2}".format(rule,len(temp_df),len(temp_df_right)/len(temp_df)))
+                print("Applying rule {0} then got coverage {1}, and the precision of this rule is {2}".format(rule,len(temp_df)/total_rows,len(temp_df_right)/len(temp_df)))
 
         print("Final accuracy is {0}".format(right_rows/total_rows))
